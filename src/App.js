@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import './App.css';
+
 // Компонент для представления отдельной задачи
 const TaskItem = ({ task, onToggle, onDelete, onEdit }) => {
   const { id, text, completed } = task;
 
-return (
-      <div>
+  return (
+    <div>
       <span
         style={{ textDecoration: completed ? 'line-through' : 'none' }}
         onClick={() => onToggle(id)}
@@ -18,12 +19,14 @@ return (
   );
 };
 
-
 // Компонент для отображения списка задач
-const TaskList = ({ tasks, onToggle, onDelete, onEdit }) => {
+const TaskList = ({ tasks, onToggle, onDelete, onEdit, filterStatus }) => {
+  // Фильтруем задачи в соответствии с текущим статусом фильтра
+  const filteredTasks = filterStatus === "all" ? tasks : tasks.filter(task => (filterStatus === "completed" ? task.completed : !task.completed));
+
   return (
     <div>
-      {tasks.map((task) => (
+      {filteredTasks.map((task) => (
         <div key={task.id} className="task-container">
           <TaskItem
             task={task}
@@ -35,7 +38,8 @@ const TaskList = ({ tasks, onToggle, onDelete, onEdit }) => {
       ))}
     </div>
   );
-}
+};
+
 // Компонент для добавления и редактирования задачи
 const TaskForm = ({ onSubmit, taskToEdit }) => {
   const [text, setText] = useState(taskToEdit ? taskToEdit.text : '');
@@ -58,14 +62,15 @@ const TaskForm = ({ onSubmit, taskToEdit }) => {
         value={text}
         onChange={(e) => setText(e.target.value)}
       />
-      <button class="glow-on-hover2"  type="submit">{taskToEdit ? 'Редактировать' : 'Добавить'}</button>
+      <button className="glow-on-hover2"  type="submit">{taskToEdit ? 'Редактировать' : 'Добавить'}</button>
     </form>
   );
 };
 
 export default function App() {
-  const [tasks, setTasks, completed] = useState([]);
+  const [tasks, setTasks] = useState([]);
   const [taskToEdit, setTaskToEdit] = useState(null);
+  const [filterStatus, setFilterStatus] = useState("all"); // По умолчанию показываем все задачи
 
   const addTask = (newTask) => {
     setTasks([...tasks, { ...newTask, id: tasks.length + 1, completed: false }]);
@@ -98,13 +103,19 @@ export default function App() {
   };
 
   return (
-    <div class="ded">
+    <div>
       <h1>Список задач</h1>
+      <div>
+        <button class="qwerty" onClick={() => setFilterStatus("all")}>Все</button>
+        <button class="qwerty" onClick={() => setFilterStatus("completed")}>Завершенные</button>
+        <button class="qwerty" onClick={() => setFilterStatus("uncompleted")}>Незавершенные</button>
+      </div>
       <TaskForm onSubmit={taskToEdit ? updateTask : addTask} taskToEdit={taskToEdit} />
-      <TaskList tasks={tasks} onToggle={toggleTask} onDelete={deleteTask} onEdit={editTask} />
+      <TaskList tasks={tasks} onToggle={toggleTask} onDelete={deleteTask} onEdit={editTask} filterStatus={filterStatus} />
     </div>
   );
 }
+
 
 
 
