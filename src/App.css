@@ -10,11 +10,22 @@ body {
 
 .container {
   text-align: center;
-  background-color: #fff;
+  background-color: rgb(109, 109, 155); /* Темно-синий фон */
   border-radius: 20px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 10px 15px 0px rgba(0, 0, 0, 0.3), /* Внешняя тень */
+               inset 0px 0px 10px 0px rgba(255, 255, 255, 0.1); /* Внутренняя тень для эффекта глубины */
   padding: 160px;
   width: 1600px;
+  margin: 0 auto;
+}
+.container {
+  text-align: center;
+  background-color: #5656cf; /* Темно-синий фон */
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), /* Внешняя тень */
+               inset 0 2px 4px rgba(255, 255, 255, 0.3); /* Внутренняя тень для эффекта глубины */
+  padding: 80px; /* Уменьшенный отступ */
+  width: 1200px; /* Уменьшенная ширина */
   margin: 0 auto;
 }
 
@@ -102,16 +113,56 @@ h1 {
   
 }
 
-.task-form button {
-  margin-top: 40px;
-  padding: 96px 160px;
-  border: none;
-  border-radius: 40px;
-  cursor: pointer;
-  font-size: 144px;
-  color: red;
-  border-radius: 30px;
+.task-cont {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px;
+  margin: 5px;
+  white-space: nowrap;
+  border-radius: 5px 25px 25px 5px;
+  border: 2px solid black;
 }
+
+.task-text {
+  flex-grow: 1;
+  cursor: pointer;
+  overflow-wrap: anywhere;
+  white-space: pre-line;
+  margin-right: 10px;
+  border: 3px solid white;
+  border-radius: 15px;
+  padding: 10px;
+}
+
+
+.task-buttons1 {
+  flex-shrink: 0;
+  background-color: #001f3f; /* Темно-синий фон */
+  color: white; /* Цвет текста */
+  border: none;
+  border-radius: 0px 15px 15px 0px;
+  padding: 10px; /* Уменьшим отступы */
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.task-buttons {
+  flex-shrink: 0;
+  background-color: #001f3f; /* Темно-синий фон */
+  color: white; /* Цвет текста */
+  border: none;
+  border-radius: 15px 0px 0px 15px;
+  padding: 10px; /* Уменьшим отступы */
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.task-buttons:hover,
+.task-buttons1:hover {
+  background-color: #003f7f; /* Изменение цвета фона при наведении */
+}
+
 
 .ded {
   background-color: #767eee;
@@ -274,7 +325,7 @@ h1 {
   background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
   position: absolute;
   top: -2px;
-  left:-2px;
+  left: -2px;
   background-size: 400%;
   z-index: -1;
   filter: blur(5px);
@@ -287,7 +338,7 @@ h1 {
 }
 
 .glow-on-hover2:active {
-  color: #000
+  color: #000;
 }
 
 .glow-on-hover2:active:after {
@@ -308,6 +359,7 @@ h1 {
   left: 0;
   top: 0;
   border-radius: 10px;
+  
 }
 
 @keyframes glowing {
@@ -315,6 +367,9 @@ h1 {
   50% { background-position: 400% 0; }
   100% { background-position: 0 0; }
 }
+
+
+
 
 
 .task-item.completed {
@@ -330,4 +385,139 @@ h1 {
 .task-item span {
   word-wrap: break-word;
   width: 1%; /* Фиксированная ширина поля с текстом */
+}
+
+
+
+
+.qwerty {
+  width: 120px;
+  height: 20px;
+  border: 2px solid black;
+  outline: none;
+  color: #ffffff;
+  background: #e2d40b;
+  cursor: pointer;
+  position: relative;
+  z-index: 0;
+  border-radius: 10px;
+  width: 140px; /* Измените ширину кнопок Завершенные и Незавершенные */
+  height: 40px; /* Измените высоту кнопок Завершенные и Незавершенные */
+}
+
+.qwerty:before {
+  content: '';
+  background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+  position: absolute;
+  top: -2px;
+  left:-2px;
+  background-size: 400%;
+  z-index: -1;
+  filter: blur(5px);
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  animation: glowing 20s linear infinite;
+  opacity: 0;
+  transition: opacity .3s ease-in-out;
+  border-radius: 10px;
+}
+
+.qwerty:active {
+  color: #000;
+}
+
+.qwerty:active:after {
+  background: transparent;
+}
+
+.qwerty:hover:before {
+  opacity: 1;
+}
+
+.qwerty:after {
+  z-index: -1;
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #c8d14e;
+  left: 0;
+  top: 0;
+  border-radius: 10px;
+}
+
+@keyframes glowing {
+  0% { background-position: 0 0; }
+  50% { background-position: 400% 0; }
+  100% { background-position: 0 0; }
+}
+
+
+
+.qwerty1 {
+  width: 120px;
+  height: 20px;
+  border: 2px solid black;
+  outline: none;
+  color: #000000;
+  background: #e2d40b;
+  cursor: pointer;
+  position: relative;
+  z-index: 0;
+  border-radius: 10px;
+  width: 140px; /* Измените ширину кнопок Завершенные и Незавершенные */
+  height: 40px; /* Измените высоту кнопок Завершенные и Незавершенные */
+  
+  
+}
+
+.qwerty1:before {
+  content: '';
+  background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+  position: absolute;
+  top: -2px;
+  left:-2px;
+  background-size: 400%;
+  z-index: -1;
+  filter: blur(5px);
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  animation: glowing 20s linear infinite;
+  opacity: 0;
+  transition: opacity .3s ease-in-out;
+  border-radius: 10px;
+}
+
+.qwerty1:active {
+  color: #000;
+}
+
+.qwerty1:active:after {
+  background: transparent;
+}
+
+.qwerty1:hover:before {
+  opacity: 1;
+}
+
+.qwerty1:after {
+  z-index: -1;
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #eedf0b;
+  left: 0;
+  top: 0;
+  border-radius: 10px;
+}
+
+@keyframes glowing {
+  0% { background-position: 0 0; }
+  50% { background-position: 400% 0; }
+  100% { background-position: 0 0; }
+}
+.qq{
+  margin-bottom: 5px;
+  
 }
